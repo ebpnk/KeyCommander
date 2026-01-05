@@ -1,0 +1,12 @@
+{
+  "Key.Invalid": "Invalid key",
+  "Key.InvalidOrActivated": "Invalid key or already activated",
+  "Key.Activated": "Key activated: {0} for {1} seconds",
+  "Key.ActivatedWithGroup": "Key activated: {0} - {1} for {2} seconds",
+  "Key.Error": "Error activating key",
+  "Key.DatabaseNotInitialized": "Database connection is not initialized",
+  "Key.Generated": "Generated key: {0}",
+  "Key.ConfigGroupNotFound": "Error: configuration group not found",
+  "Key.PlayerLeft": "Player left before activation",
+  "Key.Loaded": "Key Commander loaded!"
+}

@@ -1,0 +1,12 @@
+{
+  "Key.Invalid": "Неверный ключ",
+  "Key.InvalidOrActivated": "Неверный ключ или уже активирован",
+  "Key.Activated": "Ключ активирован: {0} на {1} секунд",
+  "Key.ActivatedWithGroup": "Ключ активирован: {0} - {1} на {2} секунд",
+  "Key.Error": "Ошибка активации ключа",
+  "Key.DatabaseNotInitialized": "Соединение с базой данных не инициализировано",
+  "Key.Generated": "Сгенерирован ключ: {0}",
+  "Key.ConfigGroupNotFound": "Ошибка: группа конфигурации не найдена",
+  "Key.PlayerLeft": "Игрок вышел до активации",
+  "Key.Loaded": "Key Commander загружен!"
+}
