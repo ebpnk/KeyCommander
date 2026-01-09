@@ -7,10 +7,10 @@ Key generation and activation plugin with command groups
   "CommandGroups": {
     "VIP": [
       "vip_remove {userid}",
-      "vip_give \"{userid}\" \"{time}\" \"{item_group}\""
+      "vip_give {userid} {time} {item_group}"
     ],
-    "SHOP": [
-      "shop_give \"{nickname}\" \"{time}\" \"{item_group}\""
+    "KIT": [
+      "css_kit_add {steamid} {item_group} {time}"
     ]
   },
   "DatabaseHost": "",
@@ -26,6 +26,10 @@ Key generation and activation plugin with command groups
 ```
 css_addkey "volume" "config group" "time" "itemGroup"
 Example: css_addkey "10" "VIP" "0" "vipgold"
+
+css_keydel <group_name>
+Example: css_keydel KIT
+
 
 Activation:
 css_key "key"
