@@ -8,5 +8,9 @@
   "Key.Generated": "Сгенерирован ключ: {0}",
   "Key.ConfigGroupNotFound": "Ошибка: группа конфигурации не найдена",
   "Key.PlayerLeft": "Игрок вышел до активации",
-  "Key.Loaded": "Key Commander загружен!"
+  "Key.Loaded": "Key Commander загружен!",
+  "Key.DeleteSuccess": "Удалено {0} ключей с группой '{1}'",
+  "Key.DeleteNoKeys": "Не найдено ключей с группой '{0}'",
+  "Key.DeleteError": "Ошибка удаления ключей: {0}",
+  "Key.DeleteMissingGroup": "Укажите название группы"
 }

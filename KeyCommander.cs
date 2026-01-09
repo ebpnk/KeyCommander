@@ -4,6 +4,7 @@ using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Config;
+using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Core.Translations;
 using System.Text.Json.Serialization;
 using MySqlConnector;
@@ -123,10 +124,10 @@ public class KeyCommanderPlugin : BasePlugin, IPluginConfig<KeyConfig>
     }
 
     [ConsoleCommand("css_addkey", "Generate keys")]
-    [CommandHelper(minArgs: 4, usage: "[count] [configGroup] [time] [itemGroup]", whoCanExecute: CommandUsage.SERVER_ONLY)]
+    [CommandHelper(minArgs: 4, usage: "[count] [configGroup] [time] [itemGroup]", whoCanExecute: CommandUsage.CLIENT_AND_SERVER)]
+    [RequiresPermissions("@css/root")]
     public void OnAddKey(CCSPlayerController? player, CommandInfo command)
     {
-        if (player != null) return;
         if (!int.TryParse(command.ArgByIndex(1), out int count) || count <= 0)
         {
             Logger.LogError("Invalid count parameter");
@@ -280,6 +281,7 @@ public class KeyCommanderPlugin : BasePlugin, IPluginConfig<KeyConfig>
                             target.PrintToChat(Localizer["Key.InvalidOrActivated"]);
                     });
                 }
+            
             }
             catch (Exception ex)
             {
@@ -290,6 +292,51 @@ public class KeyCommanderPlugin : BasePlugin, IPluginConfig<KeyConfig>
                     if (target != null && target.IsValid)
                         target.PrintToChat(Localizer["Key.Error"]);
                 });
+            }
+        });
+    }
+
+    [ConsoleCommand("css_keydel", "Delete keys by group name")]
+    [CommandHelper(minArgs: 1, usage: "[groupName]", whoCanExecute: CommandUsage.CLIENT_AND_SERVER)]
+    [RequiresPermissions("@css/root")]
+    public void OnDeleteKeys(CCSPlayerController? player, CommandInfo command)
+    {
+        string groupName = command.ArgByIndex(1);
+        if (string.IsNullOrEmpty(groupName))
+        {
+            command.ReplyToCommand(Localizer["Key.DeleteMissingGroup"]);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(_dbConnectionString))
+        {
+            command.ReplyToCommand(Localizer["Key.DatabaseNotInitialized"]);
+            return;
+        }
+
+        Task.Run(async () =>
+        {
+            try
+            {
+                await using var connection = new MySqlConnection(_dbConnectionString);
+                await connection.OpenAsync();
+                int deleted = await connection.ExecuteAsync(
+                    "DELETE FROM `keys` WHERE group_name = @groupName",
+                    new { groupName });
+                if (deleted > 0)
+                {
+                    command.ReplyToCommand(Localizer["Key.DeleteSuccess", deleted, groupName]);
+                    Logger.LogInformation($"Deleted {deleted} keys with group '{groupName}'");
+                }
+                else
+                {
+                    command.ReplyToCommand(Localizer["Key.DeleteNoKeys", groupName]);
+                }
+            }
+            catch (Exception ex)
+            {
+                command.ReplyToCommand(Localizer["Key.DeleteError", ex.Message]);
+                Logger.LogError($"Failed to delete keys: {ex.Message}");
             }
         });
     }

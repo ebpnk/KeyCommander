@@ -8,5 +8,9 @@
   "Key.Generated": "Generated key: {0}",
   "Key.ConfigGroupNotFound": "Error: configuration group not found",
   "Key.PlayerLeft": "Player left before activation",
-  "Key.Loaded": "Key Commander loaded!"
+  "Key.Loaded": "Key Commander loaded!",
+  "Key.DeleteSuccess": "Deleted {0} keys with group '{1}'",
+  "Key.DeleteNoKeys": "No keys found with group '{0}'",
+  "Key.DeleteError": "Error deleting keys: {0}",
+  "Key.DeleteMissingGroup": "Specify group name"
 }
